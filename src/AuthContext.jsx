@@ -93,7 +93,53 @@ export const AuthProvider = ({ children }) => {
            userRole.permissions.includes(permission);
   };
 
-  // Valor a ser fornecido pelo contexto
+  // ADICIONANDO AS FUNÇÕES DE RECUPERAÇÃO DE SENHA
+  // Função para solicitar recuperação de senha
+  const requestPasswordReset = async (emailOrUsername) => {
+    setLoading(true);
+    setAuthError(null);
+    try {
+      const result = await authService.requestPasswordReset(emailOrUsername);
+      return result;
+    } catch (error) {
+      setAuthError(error.message || 'Erro ao solicitar recuperação de senha');
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Função para verificar token de recuperação
+  const verifyResetToken = async (userId, token) => {
+    setLoading(true);
+    setAuthError(null);
+    try {
+      const result = await authService.verifyResetToken(userId, token);
+      return result;
+    } catch (error) {
+      setAuthError(error.message || 'Erro ao verificar token');
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Função para redefinir senha
+  const resetPassword = async (userId, token, newPassword) => {
+    setLoading(true);
+    setAuthError(null);
+    try {
+      const result = await authService.resetPassword(userId, token, newPassword);
+      return result;
+    } catch (error) {
+      setAuthError(error.message || 'Erro ao redefinir senha');
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Valor a ser fornecido pelo contexto (ADICIONANDO AS NOVAS FUNÇÕES)
   const value = {
     currentUser,
     loading,
@@ -102,6 +148,10 @@ export const AuthProvider = ({ children }) => {
     logout,
     updateUser,
     hasPermission,
+    // Adicionando as funções de recuperação de senha no valor do contexto
+    requestPasswordReset,
+    verifyResetToken,
+    resetPassword,
     isAdmin: currentUser?.role === 'admin',
     isAuthenticated: !!currentUser
   };

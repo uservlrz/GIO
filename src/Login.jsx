@@ -23,6 +23,7 @@ import fotoLogin from './assets/fotoLogin.png';
 import logoTop from './assets/logoTop.png';
 import { useAuth } from "./AuthContext";
 import MainApp from './MainApp';  // Importe o MainApp
+import ForgotPassword from './ForgotPassword'; // Importe o componente de recuperação de senha
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -31,6 +32,7 @@ function Login() {
   const [formError, setFormError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   // Use o hook do contexto de autenticação
   const { currentUser, login, loading, authError } = useAuth();
@@ -38,6 +40,11 @@ function Login() {
   // Se já estiver autenticado, redireciona para o MainApp
   if (currentUser) {
     return <MainApp />;
+  }
+
+  // Se estiver mostrando a tela de recuperação de senha
+  if (showForgotPassword) {
+    return <ForgotPassword onBackToLogin={() => setShowForgotPassword(false)} />;
   }
 
   const handleClickShowPassword = () => {
@@ -85,6 +92,11 @@ function Login() {
       return;
     }
     setOpenSnackbar(false);
+  };
+
+  // Função para mostrar a tela de recuperação de senha
+  const handleForgotPassword = () => {
+    setShowForgotPassword(true);
   };
 
   return (
@@ -143,28 +155,47 @@ function Login() {
           <Box 
             sx={{ 
               width: '100%',
-              mb: 4,
+              mb: 1,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
             }}
           >
-            <img 
-              src={logoTop} 
-              alt="TOP Construtora Logo" 
-              style={{ 
-                height: '100px',
-                marginBottom: '24px'
-              }} 
-            />
-            
-            <Typography component="h1" variant="h4" fontWeight="bold" textAlign="center">
-              GIO
-            </Typography>
-            
-            <Typography variant="subtitle1" color="text.secondary" align="center" sx={{ mt: 1 }}>
-              Gestão Inteligente de Obras
-            </Typography>
+            {/* Logo e GIO em linha sem divisor */}
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
+                mb: 1,
+                px: 4
+              }}
+            >
+              <img 
+                src={logoTop} 
+                alt="TOP Construtora Logo" 
+                style={{ 
+                  height: '100px'
+                }} 
+              />
+              
+              {/* GIO e texto abaixo */}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+              >
+                <Typography component="h1" variant="h4" fontWeight="bold">
+                  GIO
+                </Typography>
+                <Typography variant="subtitle1" color="text.secondary" align="center" sx={{ mt: 0.5 }}>
+                  Gestão Inteligente de Obras
+                </Typography>
+              </Box>
+            </Box>
           </Box>
           
           {/* Mensagem de erro de autenticação */}
@@ -275,7 +306,18 @@ function Login() {
               <Typography variant="body2" color="text.secondary">
                 &copy; 2025 TOP Construtora - Todos os direitos reservados
               </Typography>
-              <Typography variant="body2" color="primary" sx={{ mt: 1, cursor: 'pointer' }}>
+              <Typography 
+                variant="body2" 
+                color="primary" 
+                sx={{ 
+                  mt: 1, 
+                  cursor: 'pointer',
+                  '&:hover': {
+                    textDecoration: 'underline'
+                  }
+                }}
+                onClick={handleForgotPassword}
+              >
                 Esqueceu sua senha?
               </Typography>
             </Box>

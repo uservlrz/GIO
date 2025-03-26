@@ -16,7 +16,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CloseIcon from '@mui/icons-material/Close';
 import construcaoImg from './assets/construcao.png';
-import logoTop from './assets/logoTop.png';
+import logoTop from './assets/logoTop2.png';
 import GenteGestao from './GenteGestao';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
