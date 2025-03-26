@@ -1,0 +1,118 @@
+/* SplashScreen.css */
+.splash-screen {
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem;
+  }
+  
+  .splash-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .background-shimmer {
+    position: absolute;
+    inset: -1rem;
+    background: linear-gradient(to right, 
+      transparent, 
+      rgba(128, 128, 128, 0.1), 
+      transparent
+    );
+    opacity: 0.5;
+    filter: blur(4px);
+    animation: backgroundShimmer 3s linear infinite;
+  }
+  
+  .logo-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    animation: logoReveal 1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    opacity: 0;
+  }
+  
+  .logo-text {
+    color: #147B8C;
+    font-size: 4.5rem;
+    font-weight: bold;
+    letter-spacing: -0.05em;
+    margin-right: 0.5rem;
+  }
+  
+  .logo-arrow {
+    width: 2.5rem;
+    height: 2.5rem;
+    fill: #147B8C;
+    animation: arrowRise 1s 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    opacity: 0;
+  }
+  
+  .subtitle {
+    text-align: center;
+    color: rgba(20, 123, 140, 0.8);
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: subtitleReveal 1s 1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+  
+  @keyframes logoReveal {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes arrowRise {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) rotate(-15deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+  }
+  
+  @keyframes subtitleReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes backgroundShimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
