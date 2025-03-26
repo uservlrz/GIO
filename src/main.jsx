@@ -1,18 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom'; // Se estiver usando roteamento
+import './index.css';
+import Login from './Login';  // Importe o Login
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { AuthProvider } from './AuthContext';  // Adicione a importação do AuthProvider
 
-// Importações de estilos
-import './index.css';
-import './global.css'; // Se tiver estilos globais adicionais
-
-// Importações de componentes e contextos
-import { AuthProvider } from './AuthContext';
-import Login from './Login';
-
-// Configuração de temas
+// Tema personalizado para a aplicação
 const theme = createTheme({
   palette: {
     primary: {
@@ -32,28 +26,14 @@ const theme = createTheme({
       'sans-serif',
     ].join(','),
   },
-  // Configurações adicionais de tema
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none', // Impede que botões fiquem em maiúsculas por padrão
-        },
-      },
-    },
-  },
 });
 
-// Renderização da aplicação
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <CssBaseline /> {/* Normalize CSS */}
+      <CssBaseline />
       <AuthProvider>
-        {/* Você pode adicionar roteamento aqui se necessário */}
-        <BrowserRouter>
-          <Login />
-        </BrowserRouter>
+        <Login />  {/* Substitua MainApp por Login */}
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
