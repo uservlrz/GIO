@@ -16,9 +16,11 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-// Corrigindo caminhos de importação
-import authService from './authService';
-import messageService from './MessageService';
+
+// Importar o contexto de autenticação e os serviços
+import { useAuth } from './AuthContext';
+import messageService from './messageService';
+import photoFeedService from './photoFeedService';
 
 // Importar as imagens locais
 import obrabs1 from './assets/obrabs1.jpeg';
@@ -38,140 +40,10 @@ const EXAMPLE_IMAGES = [
   obrabs6,
 ];
 
-// Serviço para gerenciar o feed de fotos
-const photoFeedService = {
-  // Chave para armazenamento no localStorage
-  PHOTO_STORAGE_KEY: 'photo_feed_data',
-  
-  // Inicializar o storage se não existir
-  initialize: () => {
-    if (!localStorage.getItem(photoFeedService.PHOTO_STORAGE_KEY)) {
-      localStorage.setItem(photoFeedService.PHOTO_STORAGE_KEY, JSON.stringify([]));
-    }
-  },
-  
-  // Obter todas as fotos
-  getPhotos: () => {
-    photoFeedService.initialize();
-    try {
-      const photos = JSON.parse(localStorage.getItem(photoFeedService.PHOTO_STORAGE_KEY) || '[]');
-      return photos.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-    } catch (error) {
-      console.error('Erro ao obter fotos:', error);
-      return [];
-    }
-  },
-  
-  // Adicionar uma nova foto
-  addPhoto: (imageData, caption) => {
-    try {
-      const currentUser = authService.getCurrentUser();
-      
-      if (!currentUser || currentUser.role !== 'admin') {
-        throw new Error('Apenas administradores podem adicionar fotos');
-      }
-      
-      const photos = photoFeedService.getPhotos();
-      const newId = photos.length > 0 ? Math.max(...photos.map(p => p.id)) + 1 : 1;
-      
-      const newPhoto = {
-        id: newId,
-        image: imageData,
-        caption: caption,
-        author: currentUser.name || currentUser.username,
-        authorId: currentUser.id,
-        timestamp: new Date().toISOString(),
-        likes: []
-      };
-      
-      photos.unshift(newPhoto);
-      localStorage.setItem(photoFeedService.PHOTO_STORAGE_KEY, JSON.stringify(photos));
-      
-      return newPhoto;
-    } catch (error) {
-      console.error('Erro ao adicionar foto:', error);
-      throw error;
-    }
-  },
-  
-  // Remover uma foto
-  removePhoto: (photoId) => {
-    try {
-      const currentUser = authService.getCurrentUser();
-      
-      if (!currentUser || currentUser.role !== 'admin') {
-        throw new Error('Apenas administradores podem remover fotos');
-      }
-      
-      const photos = photoFeedService.getPhotos();
-      const updatedPhotos = photos.filter(p => p.id !== photoId);
-      
-      localStorage.setItem(photoFeedService.PHOTO_STORAGE_KEY, JSON.stringify(updatedPhotos));
-      
-      return true;
-    } catch (error) {
-      console.error('Erro ao remover foto:', error);
-      throw error;
-    }
-  },
-  
-  // Curtir/descurtir uma foto
-  toggleLike: (photoId) => {
-    try {
-      const currentUser = authService.getCurrentUser();
-      
-      if (!currentUser) {
-        throw new Error('Você precisa estar logado para curtir fotos');
-      }
-      
-      const photos = photoFeedService.getPhotos();
-      const photoIndex = photos.findIndex(p => p.id === photoId);
-      
-      if (photoIndex === -1) {
-        throw new Error('Foto não encontrada');
-      }
-      
-      const photo = photos[photoIndex];
-      const userLikeIndex = photo.likes.indexOf(currentUser.id);
-      
-      if (userLikeIndex === -1) {
-        // Adicionar curtida
-        photo.likes.push(currentUser.id);
-      } else {
-        // Remover curtida
-        photo.likes.splice(userLikeIndex, 1);
-      }
-      
-      photos[photoIndex] = photo;
-      localStorage.setItem(photoFeedService.PHOTO_STORAGE_KEY, JSON.stringify(photos));
-      
-      return photos[photoIndex];
-    } catch (error) {
-      console.error('Erro ao curtir/descurtir foto:', error);
-      throw error;
-    }
-  },
-  
-  // Verificar se um usuário curtiu uma foto
-  hasLiked: (photoId, userId) => {
-    try {
-      if (!userId) return false;
-      
-      const photos = photoFeedService.getPhotos();
-      const photo = photos.find(p => p.id === photoId);
-      
-      if (!photo) return false;
-      
-      return photo.likes.includes(userId);
-    } catch (error) {
-      console.error('Erro ao verificar curtida:', error);
-      return false;
-    }
-  }
-};
-
 function GenteGestao({ onBack }) {
   const theme = useTheme();
+  const { currentUser, isAuthenticated, isAdmin } = useAuth();
+  
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [activeStep, setActiveStep] = useState(0);
@@ -179,9 +51,6 @@ function GenteGestao({ onBack }) {
   const [error, setError] = useState(null);
   const [notification, setNotification] = useState({ open: false, message: '', severity: 'info' });
   const [editMode, setEditMode] = useState({ active: false, messageId: null, content: '' });
-  const [currentUser, setCurrentUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   
   // Estados para o feed de fotos
   const [photos, setPhotos] = useState([]);
@@ -193,65 +62,58 @@ function GenteGestao({ onBack }) {
   
   const maxSteps = EXAMPLE_IMAGES.length;
 
-  // Efeito para verificar autenticação
+  // Efeito para inicializar os bancos de dados e carregar dados
   useEffect(() => {
-    const checkAuth = () => {
-      const isAuth = authService.isAuthenticated();
-      setIsAuthenticated(isAuth);
-      
-      if (isAuth) {
-        const user = authService.getCurrentUser();
-        setCurrentUser(user);
-        setIsAdmin(user.role === 'admin');
-      } else {
-        setCurrentUser(null);
-        setIsAdmin(false);
+    const initialize = async () => {
+      try {
+        // Inicializa os bancos de dados
+        await messageService.initDatabase();
+        await photoFeedService.initDatabase();
+        
+        // Carrega os dados iniciais
+        loadMessages();
+        loadPhotos();
+      } catch (err) {
+        console.error('Erro ao inicializar:', err);
+        setError('Erro ao inicializar o componente');
       }
     };
     
-    checkAuth();
+    initialize();
   }, []);
 
-  // Efeito para carregar mensagens
-  useEffect(() => {
-    const loadMessages = () => {
-      setLoading(true);
-      try {
-        const allMessages = messageService.getMessages();
-        setMessages(allMessages);
-        setError(null);
-      } catch (err) {
-        console.error('Erro ao carregar mensagens:', err);
-        setError('Não foi possível carregar as mensagens');
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    loadMessages();
-  }, []);
+  // Função para carregar mensagens
+  const loadMessages = async () => {
+    setLoading(true);
+    try {
+      const allMessages = await messageService.getMessages();
+      setMessages(allMessages);
+      setError(null);
+    } catch (err) {
+      console.error('Erro ao carregar mensagens:', err);
+      setError('Não foi possível carregar as mensagens');
+    } finally {
+      setLoading(false);
+    }
+  };
   
-  // Efeito para carregar fotos
-  useEffect(() => {
-    const loadPhotos = () => {
-      setLoadingPhotos(true);
-      try {
-        const allPhotos = photoFeedService.getPhotos();
-        setPhotos(allPhotos);
-      } catch (err) {
-        console.error('Erro ao carregar fotos:', err);
-        setNotification({
-          open: true,
-          message: 'Não foi possível carregar as fotos',
-          severity: 'error'
-        });
-      } finally {
-        setLoadingPhotos(false);
-      }
-    };
-    
-    loadPhotos();
-  }, []);
+  // Função para carregar fotos
+  const loadPhotos = async () => {
+    setLoadingPhotos(true);
+    try {
+      const allPhotos = await photoFeedService.getPhotos();
+      setPhotos(allPhotos);
+    } catch (err) {
+      console.error('Erro ao carregar fotos:', err);
+      setNotification({
+        open: true,
+        message: 'Não foi possível carregar as fotos',
+        severity: 'error'
+      });
+    } finally {
+      setLoadingPhotos(false);
+    }
+  };
 
   // Efeito para avançar automaticamente o carrossel
   useEffect(() => {
@@ -291,7 +153,7 @@ function GenteGestao({ onBack }) {
   };
 
   // Adicionar uma nova mensagem
-  const handleAddMessage = () => {
+  const handleAddMessage = async () => {
     if (!isAuthenticated) {
       setNotification({
         open: true,
@@ -312,7 +174,7 @@ function GenteGestao({ onBack }) {
     
     setLoading(true);
     try {
-      const result = messageService.addMessage(newMessage);
+      const result = await messageService.addMessage(newMessage);
       setMessages([result, ...messages]);
       setNewMessage('');
       setNotification({
@@ -333,11 +195,11 @@ function GenteGestao({ onBack }) {
   };
 
   // Remover uma mensagem
-  const handleRemoveMessage = (id) => {
+  const handleRemoveMessage = async (id) => {
     if (window.confirm('Tem certeza que deseja excluir esta mensagem?')) {
       setLoading(true);
       try {
-        messageService.removeMessage(id);
+        await messageService.removeMessage(id);
         setMessages(messages.filter(msg => msg.id !== id));
         setNotification({
           open: true,
@@ -367,7 +229,7 @@ function GenteGestao({ onBack }) {
   };
 
   // Salvar edição de mensagem
-  const handleSaveEdit = () => {
+  const handleSaveEdit = async () => {
     if (editMode.content.trim() === '') {
       setNotification({
         open: true,
@@ -379,7 +241,7 @@ function GenteGestao({ onBack }) {
     
     setLoading(true);
     try {
-      const updatedMessage = messageService.editMessage(editMode.messageId, editMode.content);
+      const updatedMessage = await messageService.editMessage(editMode.messageId, editMode.content);
       setMessages(messages.map(msg => 
         msg.id === editMode.messageId ? updatedMessage : msg
       ));
@@ -413,10 +275,17 @@ function GenteGestao({ onBack }) {
 
   // Verificar permissões de modificação
   const canModifyMessage = (messageId) => {
-    return messageService.canModifyMessage(messageId);
+    const message = messages.find(msg => msg.id === messageId);
+    if (!currentUser || !message) return false;
+    
+    // Administradores podem modificar qualquer mensagem
+    if (isAdmin) return true;
+    
+    // Verifica se o usuário é o autor da mensagem
+    return message.userId === currentUser.id || message.user_id === currentUser.id;
   };
   
-  // Funções para o Feed de Fotos
+  // FUNÇÕES PARA O FEED DE FOTOS
   
   // Selecionar um arquivo
   const handleFileSelect = (event) => {
@@ -440,7 +309,7 @@ function GenteGestao({ onBack }) {
   };
   
   // Publicar uma foto
-  const handlePostPhoto = () => {
+  const handlePostPhoto = async () => {
     if (!isAdmin) {
       setNotification({
         open: true,
@@ -461,7 +330,11 @@ function GenteGestao({ onBack }) {
     
     setLoadingPhotos(true);
     try {
-      const newPhoto = photoFeedService.addPhoto(selectedFile, newCaption);
+      // Converter o base64 para um blob
+      const base64Response = await fetch(selectedFile);
+      const blob = await base64Response.blob();
+      
+      const newPhoto = await photoFeedService.addPhoto(blob, newCaption);
       setPhotos([newPhoto, ...photos]);
       setSelectedFile(null);
       setSelectedFileName('');
@@ -484,11 +357,11 @@ function GenteGestao({ onBack }) {
   };
   
   // Remover uma foto
-  const handleRemovePhoto = (photoId) => {
+  const handleRemovePhoto = async (photoId) => {
     if (window.confirm('Tem certeza que deseja excluir esta foto?')) {
       setLoadingPhotos(true);
       try {
-        photoFeedService.removePhoto(photoId);
+        await photoFeedService.removePhoto(photoId);
         setPhotos(photos.filter(photo => photo.id !== photoId));
         setNotification({
           open: true,
@@ -509,7 +382,7 @@ function GenteGestao({ onBack }) {
   };
   
   // Curtir/descurtir uma foto
-  const handleToggleLike = (photoId) => {
+  const handleToggleLike = async (photoId) => {
     if (!isAuthenticated) {
       setNotification({
         open: true,
@@ -521,7 +394,7 @@ function GenteGestao({ onBack }) {
     
     setLoadingPhotos(true);
     try {
-      const updatedPhoto = photoFeedService.toggleLike(photoId);
+      const updatedPhoto = await photoFeedService.toggleLike(photoId);
       setPhotos(photos.map(photo => 
         photo.id === photoId ? updatedPhoto : photo
       ));
@@ -540,9 +413,9 @@ function GenteGestao({ onBack }) {
   // Verificar se o usuário curtiu uma foto
   const userHasLiked = (photoId) => {
     if (!currentUser) return false;
-    return photoFeedService.hasLiked(photoId, currentUser.id);
+    return photoFeedService.hasLiked(photoId, currentUser.id, photos);
   };
-
+  
   return (
     <Box sx={{ bgcolor: '#f5f9ff', minHeight: '100vh', pt: 20, pb: 8 }}>
       {/* Notificações */}
@@ -1060,7 +933,7 @@ function GenteGestao({ onBack }) {
                             )}
                             
                             <Typography variant="body2" color="text.secondary">
-                              {photo.likes.length} {photo.likes.length === 1 ? 'curtida' : 'curtidas'}
+                              {photo.likes && photo.likes.length} {photo.likes && photo.likes.length === 1 ? 'curtida' : 'curtidas'}
                             </Typography>
                           </CardContent>
                           

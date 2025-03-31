@@ -13,17 +13,22 @@ import {
   Alert,
   CircularProgress,
   Divider,
+  Dialog,
+  DialogTitle,
+  DialogContent
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
+import StorageIcon from '@mui/icons-material/Storage';
 import fotoLogin from './assets/fotoLogin.png';
 import logoTop from './assets/logoTop.png';
 import { useAuth } from "./AuthContext";
 import MainApp from './MainApp';  // Importe o MainApp
 import ForgotPassword from './ForgotPassword'; // Importe o componente de recuperação de senha
+import ContentMigrationTool from './ContentMigrationTool'; // Importe a ferramenta de migração
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -33,6 +38,7 @@ function Login() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [openMigrationDialog, setOpenMigrationDialog] = useState(false);
 
   // Use o hook do contexto de autenticação
   const { currentUser, login, loading, authError } = useAuth();
@@ -97,6 +103,15 @@ function Login() {
   // Função para mostrar a tela de recuperação de senha
   const handleForgotPassword = () => {
     setShowForgotPassword(true);
+  };
+
+  // Funções para abrir e fechar o diálogo de migração
+  const handleOpenMigrationDialog = () => {
+    setOpenMigrationDialog(true);
+  };
+
+  const handleCloseMigrationDialog = () => {
+    setOpenMigrationDialog(false);
   };
 
   return (
@@ -306,24 +321,64 @@ function Login() {
               <Typography variant="body2" color="text.secondary">
                 &copy; 2025 TOP Construtora - Todos os direitos reservados
               </Typography>
-              <Typography 
-                variant="body2" 
-                color="primary" 
-                sx={{ 
-                  mt: 1, 
-                  cursor: 'pointer',
-                  '&:hover': {
-                    textDecoration: 'underline'
-                  }
-                }}
-                onClick={handleForgotPassword}
-              >
-                Esqueceu sua senha?
-              </Typography>
+              
+              <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 1 }}>
+                <Typography 
+                  variant="body2" 
+                  color="primary" 
+                  sx={{ 
+                    cursor: 'pointer',
+                    '&:hover': {
+                      textDecoration: 'underline'
+                    }
+                  }}
+                  onClick={handleForgotPassword}
+                >
+                  Esqueceu sua senha?
+                </Typography>
+                
+                {/* Botão para abrir a ferramenta de migração */}
+                <Typography 
+                  variant="body2" 
+                  color="primary" 
+                  sx={{ 
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 0.5,
+                    '&:hover': {
+                      textDecoration: 'underline'
+                    }
+                  }}
+                  onClick={handleOpenMigrationDialog}
+                >
+                  <StorageIcon fontSize="small" />
+                  Migrar Dados
+                </Typography>
+              </Box>
             </Box>
           </Box>
         </Paper>
       </Container>
+
+      {/* Dialog para a ferramenta de migração */}
+      <Dialog 
+        open={openMigrationDialog} 
+        onClose={handleCloseMigrationDialog}
+        maxWidth="lg"
+        fullWidth
+      >
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <StorageIcon color="primary" />
+            <Typography variant="h6">Ferramenta de Migração de Dados</Typography>
+          </Box>
+          <Button onClick={handleCloseMigrationDialog} color="inherit">Fechar</Button>
+        </DialogTitle>
+        <DialogContent dividers>
+          <ContentMigrationTool />
+        </DialogContent>
+      </Dialog>
 
       <Snackbar 
         open={openSnackbar} 
@@ -344,3 +399,4 @@ function Login() {
 }
 
 export default Login;
+
