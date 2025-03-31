@@ -19,7 +19,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 // Importar o contexto de autenticação e os serviços
 import { useAuth } from './AuthContext';
-import messageService from './messageService';
+import messageService from './MessageService';
 import photoFeedService from './photoFeedService';
 
 // Importar as imagens locais
