@@ -325,8 +325,17 @@ function Login() {
         </Paper>
       </Container>
 
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-        <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: '100%' }}>
+      <Snackbar 
+        open={openSnackbar} 
+        autoHideDuration={6000} 
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity="error"
+          sx={{ width: '100%' }}
+        >
           {formError || authError || 'Erro de autenticação'}
         </Alert>
       </Snackbar>

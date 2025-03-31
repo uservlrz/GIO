@@ -17,25 +17,32 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState(null);
 
-  // Efeito para carregar o usuário atual ao iniciar
+  // Efeito para inicializar o banco de dados e carregar o usuário atual
   useEffect(() => {
-    const checkAuthentication = () => {
+    const initialize = async () => {
       try {
+        // Inicializa o banco de dados Supabase (se necessário)
+        await authService.initDatabase();
+        
+        // Verifica autenticação
         if (authService.isAuthenticated()) {
           setCurrentUser(authService.getCurrentUser());
         } else {
           setCurrentUser(null);
         }
       } catch (error) {
-        console.error('Erro ao verificar autenticação:', error);
+        console.error('Erro ao inicializar:', error);
         setCurrentUser(null);
       } finally {
         setLoading(false);
       }
     };
 
-    checkAuthentication();
+    initialize();
   }, []);
+
+  // O resto do arquivo permanece o mesmo
+  // ...
 
   // Função de login
   const login = async (username, password) => {
