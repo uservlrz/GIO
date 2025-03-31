@@ -158,7 +158,7 @@ function App({ onLogout }) {
             <Box sx={{ py: 8, bgcolor: 'grey.100' }}>
               <Container>
                 {/* Título Destacado de Serviços */}
-                <Box sx={{ mb: 6, position: 'relative', textAlign: 'center' }}>
+                <Box sx={{ mb: 4, position: 'relative', textAlign: 'center' }}>
                   {/* Elemento decorativo atrás do título */}
                   <Typography 
                     variant="h4" 
@@ -189,7 +189,7 @@ function App({ onLogout }) {
                       color: 'primary.dark',
                       zIndex: 1,
                       display: 'inline-block',
-                      mb: -5
+                      mb: 0
                     }}
                   >
                     Serviços
@@ -199,7 +199,7 @@ function App({ onLogout }) {
                   <Box 
                     sx={{ 
                       width: '120px', 
-                      height: '4px', 
+                      height: '0px', 
                       background: 'linear-gradient(90deg, transparent, primary.main, transparent)', 
                       borderRadius: '2px',
                       mx: 'auto',
@@ -229,7 +229,7 @@ function App({ onLogout }) {
                       letterSpacing: '0.3px'
                     }}
                   >
-                    Soluções tecnológicas para aprimorar a gestão das obras
+                    
                   </Typography>
                 </Box>
                 
@@ -540,7 +540,7 @@ function App({ onLogout }) {
                   sx={{ 
                     fontWeight: 700, 
                     mb: 1,
-                    background: 'linear-gradient(90deg, #1976d2, #42a5f5)',
+                    background: 'linear-gradient(90deg, #12b0a0, #12b0a0)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                   }}
@@ -569,7 +569,7 @@ function App({ onLogout }) {
                     left: 12,
                     right: -12,
                     bottom: -12,
-                    bgcolor: 'rgba(25, 118, 210, 0.05)',
+                    bgcolor: '',
                     borderRadius: 4,
                     zIndex: 0
                   }} />
@@ -639,10 +639,10 @@ function App({ onLogout }) {
                 <Grid container spacing={6}>
                   <Grid item xs={12} md={4}>
                     <Box sx={{ mb: 4 }}>
-                      <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: '#7BD2F0' }}>
+                      <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: '#12b0a0' }}>
                         TOP Construtora
                       </Typography>
-                      <Divider sx={{ width: 80, height: 3, bgcolor: '#7BD2F0', mb: 3 }} />
+                      <Divider sx={{ width: 80, height: 3, bgcolor: '#12b0a0', mb: 3 }} />
                       <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.8 }}>
                         Construindo o futuro com inovação, qualidade e sustentabilidade. Nossa missão é transformar visões em realidade através de projetos que superam expectativas.
                       </Typography>
@@ -663,7 +663,7 @@ function App({ onLogout }) {
                             p: 0, 
                             textTransform: 'none',
                             fontSize: '0.95rem',
-                            '&:hover': { color: '#7BD2F0' }
+                            '&:hover': { color: '#12b0a0' }
                           }}
                         >
                           Início
@@ -676,7 +676,7 @@ function App({ onLogout }) {
                             p: 0, 
                             textTransform: 'none',
                             fontSize: '0.95rem',
-                            '&:hover': { color: '#7BD2F0' }
+                            '&:hover': { color: '#12b0a0' }
                           }}
                         >
                           Serviços
@@ -690,7 +690,7 @@ function App({ onLogout }) {
                             p: 0, 
                             textTransform: 'none',
                             fontSize: '0.95rem',
-                            '&:hover': { color: '#7BD2F0' }
+                            '&:hover': { color: '#12b0a0' }
                           }}
                         >
                           Sobre Nós
@@ -704,7 +704,7 @@ function App({ onLogout }) {
                             p: 0, 
                             textTransform: 'none',
                             fontSize: '0.95rem',
-                            '&:hover': { color: '#7BD2F0' }
+                            '&:hover': { color: '#12b0a0' }
                           }}
                         >
                           Contato
@@ -726,7 +726,7 @@ function App({ onLogout }) {
                             p: 0, 
                             textTransform: 'none',
                             fontSize: '0.95rem',
-                            '&:hover': { color: '#7BD2F0' }
+                            '&:hover': { color: '#12b0a0' }
                           }}
                         >
                           IA TOP
@@ -739,7 +739,7 @@ function App({ onLogout }) {
                             p: 0, 
                             textTransform: 'none',
                             fontSize: '0.95rem',
-                            '&:hover': { color: '#7BD2F0' }
+                            '&:hover': { color: '#12b0a0' }
                           }}
                         >
                           SGQ
@@ -752,7 +752,7 @@ function App({ onLogout }) {
                             p: 0, 
                             textTransform: 'none',
                             fontSize: '0.95rem',
-                            '&:hover': { color: '#7BD2F0' }
+                            '&:hover': { color: '#12b0a0' }
                           }}
                         >
                           SST
@@ -766,7 +766,7 @@ function App({ onLogout }) {
                             p: 0, 
                             textTransform: 'none',
                             fontSize: '0.95rem',
-                            '&:hover': { color: '#7BD2F0' }
+                            '&:hover': { color: '#12b0a0' }
                           }}
                         >
                           GENTE E GESTÃO
@@ -817,10 +817,10 @@ function App({ onLogout }) {
                     &copy; 2025 TOP Construtora. Todos os direitos reservados.
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 3, mt: { xs: 2, sm: 0 } }}>
-                    <Typography component="a" variant="body2" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { color: '#7BD2F0', opacity: 1 } }}>
+                    <Typography component="a" variant="body2" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { color: '#12b0a0', opacity: 1 } }}>
                       Política de Privacidade
                     </Typography>
-                    <Typography component="a" variant="body2" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { color: '#7BD2F0', opacity: 1 } }}>
+                    <Typography component="a" variant="body2" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { color: '#12b0a0', opacity: 1 } }}>
                       Termos de Uso
                     </Typography>
                   </Box>

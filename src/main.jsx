@@ -10,9 +10,9 @@ import { AuthProvider } from './AuthContext';  // Adicione a importação do Aut
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
-      light: '#42a5f5',
-      dark: '#1565c0',
+      main: '#1e6076',
+      light: '#12b0a0',
+      dark: '#12b0a0',
     },
     secondary: {
       main: '#f50057',
