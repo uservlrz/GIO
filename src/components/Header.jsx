@@ -73,6 +73,7 @@ const Header = ({
             color="inherit"
             onClick={handleServicesClick}
             endIcon={<ArrowDropDownIcon />}
+            
           >
             Serviços
           </Button>
@@ -101,11 +102,11 @@ const Header = ({
                   display: 'block',
                   position: 'absolute',
                   top: 0,
-                  left: 14,
+                  left: '40%',
                   width: 10,
                   height: 10,
                   bgcolor: 'background.paper',
-                  transform: 'translateY(-50%) rotate(45deg)',
+                  transform: 'translateX(-50%) translateY(-50%) rotate(45deg)',
                   zIndex: 0,
                 },
               },
@@ -300,7 +301,7 @@ const Header = ({
               sx: {
                 overflow: 'visible',
                 filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.15))',
-                mt: 1.5,
+                mt: 0.5,
                 borderRadius: 2,
                 minWidth: 220,
                 '&:before': {
@@ -308,11 +309,11 @@ const Header = ({
                   display: 'block',
                   position: 'absolute',
                   top: 0,
-                  right: 14,
+                  right: '50%',
                   width: 10,
                   height: 10,
                   bgcolor: 'background.paper',
-                  transform: 'translateY(-50%) rotate(45deg)',
+                  transform: 'translateX(-50%) translateY(-50%) rotate(45deg)',
                   zIndex: 0,
                 },
               },

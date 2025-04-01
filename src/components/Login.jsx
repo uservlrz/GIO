@@ -65,7 +65,7 @@ function Login() {
     
     // Validação do formulário
     if (!username.trim()) {
-      setFormError('O nome de usuário é obrigatório');
+      setFormError('O e-mail é obrigatório');
       setOpenSnackbar(true);
       return;
     }
@@ -236,10 +236,11 @@ function Login() {
               required
               fullWidth
               id="username"
-              label="Nome de usuário"
+              label="E-mail"
               name="username"
-              autoComplete="username"
+              autoComplete="email"
               autoFocus
+              placeholder="Digite seu e-mail (ex: nome@empresa.com)"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               InputProps={{
@@ -261,6 +262,7 @@ function Login() {
               type={showPassword ? 'text' : 'password'}
               id="password"
               autoComplete="current-password"
+              placeholder="Senha Padrão: Primeiro Nome + 123 (ex: maria123)"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               InputProps={{
@@ -361,4 +363,3 @@ function Login() {
 }
 
 export default Login;
-
