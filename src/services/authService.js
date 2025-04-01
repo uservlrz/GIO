@@ -1,7 +1,7 @@
 // src/contexts/authService.js
 import { users as initialUsers } from './users';
 import emailjs from 'emailjs-com';
-import supabase from './supabase/client';
+import supabase from '../supabase/client';
 
 // Configuração do EmailJS
 const EMAILJS_SERVICE_ID = 'default_service';

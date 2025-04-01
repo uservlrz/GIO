@@ -1,5 +1,5 @@
 // src/services/photoFeedService.js
-import supabase from './supabase/client';
+import supabase from '../supabase/client';
 import authService from './authService';
 
 // Chave para armazenamento no localStorage (para compatibilidade)

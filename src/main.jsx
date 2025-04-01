@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import Login from './Login';  // Importe o Login
+import './styless/index.css';
+import Login from './components/Login';  // Importe o Login
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { AuthProvider } from './AuthContext';  // Adicione a importação do AuthProvider
+import { AuthProvider } from './contexts/AuthContext';  // Adicione a importação do AuthProvider
 
 // Tema personalizado para a aplicação
 const theme = createTheme({
@@ -33,7 +33,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AuthProvider>
-        <Login />  {/* Substitua MainApp por Login */}
+        <Login />  
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>

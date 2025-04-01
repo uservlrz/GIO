@@ -20,9 +20,9 @@ import EmailIcon from '@mui/icons-material/Email';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
-import fotoLogin from './assets/fotoLogin.png';
-import logoTop from './assets/logoTop.png';
-import authService from './authService';
+import fotoLogin from '../assets/fotoLogin.png';
+import logoTop from '../assets/logoTop.png';
+import authService from '../services/authService';
 
 const ForgotPassword = ({ onBackToLogin }) => {
   const [activeStep, setActiveStep] = useState(0);

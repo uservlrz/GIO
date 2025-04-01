@@ -1,9 +1,9 @@
 // src/MainApp.jsx
 import React from 'react';
 import App from './App';
-import { AuthProvider, useAuth } from "./AuthContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { CircularProgress, Box } from '@mui/material';
-import Login from './Login';
+import Login from './components/Login';
 
 // Em MainApp.jsx
 const AuthenticatedApp = () => {

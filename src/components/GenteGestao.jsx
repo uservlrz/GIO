@@ -18,17 +18,17 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 // Importar o contexto de autenticação e os serviços
-import { useAuth } from './AuthContext';
-import messageService from './MessageService';
-import photoFeedService from './photoFeedService';
+import { useAuth } from '../contexts/AuthContext';
+import messageService from '../services/MessageService';
+import photoFeedService from '../services/photoFeedService';
 
 // Importar as imagens locais
-import obrabs1 from './assets/obrabs1.jpeg';
-import obrabs2 from './assets/obrabs2.jpeg';
-import obrabs3 from './assets/obrabs3.jpeg';
-import obrabs4 from './assets/obrabs4.jpeg';
-import obrabs5 from './assets/obrabs5.jpeg';
-import obrabs6 from './assets/obrabs6.jpeg';
+import obrabs1 from '../assets/obrabs1.jpeg';
+import obrabs2 from '../assets/obrabs2.jpeg';
+import obrabs3 from '../assets/obrabs3.jpeg';
+import obrabs4 from '../assets/obrabs4.jpeg';
+import obrabs5 from '../assets/obrabs5.jpeg';
+import obrabs6 from '../assets/obrabs6.jpeg';
 
 // Imagens locais para o carrossel
 const EXAMPLE_IMAGES = [
