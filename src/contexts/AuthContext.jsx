@@ -3,6 +3,14 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import authService from '../services/authService';
 import { roles } from '../services/users';
 
+// Adicionando o mapeamento de roles para links de BI
+const roleToBILinks = {
+  'administracao_central': 'https://app.powerbi.com/view?r=eyJrIjoiZjg5ZTRjYTUtNjI4MS00ZTMxLWEwZTctYjJiODFjNmQ2NjBiIiwidCI6IjZjNTkxNjdhLTVhYTAtNDk2Ni1hZTRiLWNiMjYzZWIwNTVkOCJ9',
+  'admin': 'https://app.powerbi.com/view?r=eyJrIjoiZjg5ZTRjYTUtNjI4MS00ZTMxLWEwZTctYjJiODFjNmQ2NjBiIiwidCI6IjZjNTkxNjdhLTVhYTAtNDk2Ni1hZTRiLWNiMjYzZWIwNTVkOCJ9',
+  'equipe_obras': 'https://app.powerbi.com/view?r=eyJrIjoiNTE3MzI2ZWQtZWU0Yi00ZTdmLWEwZTItNTU5ZThkNTE4YjkwIiwidCI6IjZjNTkxNjdhLTVhYTAtNDk2Ni1hZTRiLWNiMjYzZWIwNTVkOCJ9',
+  'sem_acesso': null // sem acesso a BI
+};
+
 // Cria o contexto
 const AuthContext = createContext();
 
@@ -40,9 +48,6 @@ export const AuthProvider = ({ children }) => {
 
     initialize();
   }, []);
-
-  // O resto do arquivo permanece o mesmo
-  // ...
 
   // Função de login
   const login = async (username, password) => {
@@ -100,6 +105,27 @@ export const AuthProvider = ({ children }) => {
            userRole.permissions.includes(permission);
   };
 
+  // NOVO MÉTODO: Obter o link de BI baseado na role do usuário
+  const getBILink = () => {
+    if (!currentUser || !currentUser.role) return null;
+    
+    // Converter para lowercase para garantir a correspondência
+    const userRole = currentUser.role.toLowerCase();
+    
+    // Se a role do usuário for 'admin', usar o mesmo link de 'administracao_central'
+    if (userRole === 'admin') {
+      return roleToBILinks['admin'];
+    }
+    
+    // Retorna o link correspondente à role ou null se não houver correspondência
+    return roleToBILinks[userRole] || null;
+  };
+
+  // Verifica se o usuário tem acesso a algum dashboard de BI
+  const hasBIAccess = () => {
+    return getBILink() !== null;
+  };
+
   // ADICIONANDO AS FUNÇÕES DE RECUPERAÇÃO DE SENHA
   // Função para solicitar recuperação de senha
   const requestPasswordReset = async (emailOrUsername) => {
@@ -155,7 +181,10 @@ export const AuthProvider = ({ children }) => {
     logout,
     updateUser,
     hasPermission,
-    // Adicionando as funções de recuperação de senha no valor do contexto
+    // Novas funções para acesso ao BI
+    getBILink,
+    hasBIAccess,
+    // Funções de recuperação de senha
     requestPasswordReset,
     verifyResetToken,
     resetPassword,

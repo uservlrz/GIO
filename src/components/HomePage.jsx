@@ -1,15 +1,24 @@
 import React from 'react';
 import { 
   Container, Grid, Typography, Button, Card, CardContent, 
-  CardActions, Box, Avatar, Paper, Divider
+  CardActions, Box, Avatar, Paper, Divider, Alert
 } from '@mui/material';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import ComputerIcon from '@mui/icons-material/Computer';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import SecurityIcon from '@mui/icons-material/Security';
 import PeopleIcon from '@mui/icons-material/People';
+import BlockIcon from '@mui/icons-material/Block';
+import { useAuth } from '../contexts/AuthContext'; // Importe o hook useAuth
 
-const HomePage = ({ currentUser, handleNavigateToPage, construcaoImg }) => {
+const HomePage = ({ handleNavigateToPage, construcaoImg }) => {
+  // Use o hook useAuth para acessar os métodos do contexto e o usuário atual
+  const { currentUser, getBILink, hasBIAccess } = useAuth();
+  
+  // Obter o link de BI específico para a role do usuário
+  const dashboardUrl = getBILink();
+  const hasAccess = hasBIAccess();
+  
   return (
     <>
       {/* Hero Section - com imagem de fundo */}
@@ -420,138 +429,204 @@ const HomePage = ({ currentUser, handleNavigateToPage, construcaoImg }) => {
         </Container>
       </Box>
       
-      {/* Seção Power BI - Ajustada sem emblemas e altura reduzida */}
-      <Box sx={{ 
-        width: '100%', 
-        py: 8, 
-        bgcolor: '#f5f9ff', 
-        backgroundImage: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.95), rgba(245, 249, 255, 0.8)), url(https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGRhdGElMjBhbmFseXRpY3N8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}>
-        <Container maxWidth="lg" sx={{ position: 'relative' }}>
-          {/* Ícone decorativo */}
-          <Box sx={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            mb: 4,
-            position: 'relative'
-          }}>
+      {/* Seção Power BI - Modificada para acesso condicional */}
+      {hasAccess ? (
+        <Box sx={{ 
+          width: '100%', 
+          py: 8, 
+          bgcolor: '#f5f9ff', 
+          backgroundImage: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.95), rgba(245, 249, 255, 0.8)), url(https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGRhdGElMjBhbmFseXRpY3N8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}>
+          <Container maxWidth="lg" sx={{ position: 'relative' }}>
+            {/* Ícone decorativo */}
             <Box sx={{ 
-              width: 80, 
-              height: 80, 
-              bgcolor: 'primary.main', 
               display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              borderRadius: '50%',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-              zIndex: 1
+              justifyContent: 'center', 
+              mb: 4,
+              position: 'relative'
             }}>
-              <BarChartIcon sx={{ fontSize: 40, color: 'white' }} />
+              <Box sx={{ 
+                width: 80, 
+                height: 80, 
+                bgcolor: 'primary.main', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                borderRadius: '50%',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                zIndex: 1
+              }}>
+                <BarChartIcon sx={{ fontSize: 40, color: 'white' }} />
+              </Box>
+              <Box sx={{ 
+                position: 'absolute', 
+                height: 2, 
+                bgcolor: 'rgba(0,0,0,0.07)', 
+                width: '80%', 
+                top: 40
+              }} />
             </Box>
-            <Box sx={{ 
-              position: 'absolute', 
-              height: 2, 
-              bgcolor: 'rgba(0,0,0,0.07)', 
-              width: '80%', 
-              top: 40
-            }} />
-          </Box>
-          
-          <Typography 
-            variant="h3" 
-            component="h2" 
-            align="center" 
-            gutterBottom 
-            sx={{ 
-              fontWeight: 700, 
-              mb: 1,
-              background: 'linear-gradient(90deg, #12b0a0, #12b0a0)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            Dashboard de Performance
-          </Typography>
-          
-          <Typography 
-            variant="subtitle1" 
-            color="text.secondary" 
-            align="center" 
-            sx={{ maxWidth: 700, mx: 'auto', mb: 5, fontWeight: 500 }}
-          >
-            Acompanhe em tempo real os principais indicadores de desempenho dos nossos projetos
-          </Typography>
-          
-          {/* Container para o Power BI com efeito de profundidade */}
-          <Box sx={{ 
-            position: 'relative',
-            mb: 4
-          }}>
-            {/* Camada decorativa */}
-            <Box sx={{
-              position: 'absolute',
-              top: 12,
-              left: 12,
-              right: -12,
-              bottom: -12,
-              bgcolor: '',
-              borderRadius: 4,
-              zIndex: 0
-            }} />
             
-            {/* Camada decorativa 2 */}
-            <Box sx={{
-              position: 'absolute',
-              top: 6,
-              left: 6,
-              right: -6,
-              bottom: -6,
-              bgcolor: 'rgba(25, 118, 210, 0.1)',
-              borderRadius: 4,
-              zIndex: 0
-            }} />
-            
-            {/* Frame principal */}
-            <Paper 
-              elevation={12} 
+            <Typography 
+              variant="h3" 
+              component="h2" 
+              align="center" 
+              gutterBottom 
               sx={{ 
-                position: 'relative',
-                zIndex: 1,
-                borderRadius: 4,
-                overflow: 'hidden',
+                fontWeight: 700, 
+                mb: 1,
+                background: 'linear-gradient(90deg, #12b0a0, #12b0a0)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
               }}
             >
+              Dashboard de Performance
+            </Typography>
+            
+            <Typography 
+              variant="subtitle1" 
+              color="text.secondary" 
+              align="center" 
+              sx={{ maxWidth: 700, mx: 'auto', mb: 5, fontWeight: 500 }}
+            >
+              Acompanhe em tempo real os principais indicadores de desempenho dos nossos projetos
+            </Typography>
+            
+            {/* Container para o Power BI com efeito de profundidade */}
+            <Box sx={{ 
+              position: 'relative',
+              mb: 4
+            }}>
+              {/* Camada decorativa */}
+              <Box sx={{
+                position: 'absolute',
+                top: 12,
+                left: 12,
+                right: -12,
+                bottom: -12,
+                bgcolor: '',
+                borderRadius: 4,
+                zIndex: 0
+              }} />
+              
+              {/* Camada decorativa 2 */}
+              <Box sx={{
+                position: 'absolute',
+                top: 6,
+                left: 6,
+                right: -6,
+                bottom: -6,
+                bgcolor: 'rgba(25, 118, 210, 0.1)',
+                borderRadius: 4,
+                zIndex: 0
+              }} />
+              
+              {/* Frame principal com iframe específico para a role do usuário */}
+              <Paper 
+                elevation={12} 
+                sx={{ 
+                  position: 'relative',
+                  zIndex: 1,
+                  borderRadius: 4,
+                  overflow: 'hidden',
+                }}
+              >
+                <Box sx={{ 
+                  position: 'relative',
+                  height: '70vh',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '4px',
+                    background: 'linear-gradient(90deg, #1976d2, #42a5f5)',
+                    zIndex: 2
+                  },
+                }}>
+                  <iframe 
+                    title="Dashboard de Performance" 
+                    width="100%" 
+                    height="100%" 
+                    src={dashboardUrl} // Usa o link específico da role
+                    frameBorder="0" 
+                    allowFullScreen
+                    style={{ position: 'relative', zIndex: 1 }}
+                  />
+                </Box>
+              </Paper>
+            </Box>
+          </Container>
+        </Box>
+      ) : (
+        <Box sx={{ 
+          width: '100%', 
+          py: 8, 
+          bgcolor: '#f5f9ff',
+          backgroundImage: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.95), rgba(245, 249, 255, 0.8))',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}>
+          <Container maxWidth="lg">
+            <Box sx={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              mb: 4
+            }}>
               <Box sx={{ 
-                position: 'relative',
-                height: '70vh', // Reduzido de 85vh para 70vh
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: '4px',
-                  background: 'linear-gradient(90deg, #1976d2, #42a5f5)',
-                  zIndex: 2
-                },
+                width: 80, 
+                height: 80, 
+                bgcolor: 'grey.400', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                borderRadius: '50%',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
               }}>
-                <iframe 
-                  title="Dashboard de Performance" 
-                  width="100%" 
-                  height="100%" 
-                  src="https://app.powerbi.com/view?r=eyJrIjoiYzRjNTk2YzYtZjY4My00ZDkzLTg5MGEtYjFjNmM3NGNjY2E4IiwidCI6IjZjNTkxNjdhLTVhYTAtNDk2Ni1hZTRiLWNiMjYzZWIwNTVkOCJ9"
-                  frameBorder="0" 
-                  allowFullScreen
-                  style={{ position: 'relative', zIndex: 1 }}
-                />
+                <BlockIcon sx={{ fontSize: 40, color: 'white' }} />
               </Box>
-            </Paper>
-          </Box>
-        </Container>
-      </Box>
+            </Box>
+            
+            <Typography 
+              variant="h3" 
+              component="h2" 
+              align="center" 
+              gutterBottom 
+              sx={{ 
+                fontWeight: 700, 
+                mb: 3,
+                color: 'grey.600'
+              }}
+            >
+              Acesso Restrito
+            </Typography>
+            
+            <Alert 
+              severity="info" 
+              variant="filled"
+              sx={{ 
+                width: '80%', 
+                mx: 'auto', 
+                mb: 4,
+                borderRadius: 2,
+                py: 2
+              }}
+            >
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                Você não possui acesso aos dashboards
+              </Typography>
+              <Typography>
+                Seu perfil atual não tem permissão para visualizar os dashboards de BI.
+                Entre em contato com o administrador do sistema para solicitar acesso.
+              </Typography>
+            </Alert>
+          </Container>
+        </Box>
+      )}
     </>
   );
 };
