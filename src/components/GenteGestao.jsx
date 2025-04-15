@@ -23,21 +23,23 @@ import messageService from '../services/MessageService';
 import photoFeedService from '../services/photoFeedService';
 
 // Importar as imagens locais
-import obrabs1 from '../assets/obrabs1.jpeg';
-import obrabs2 from '../assets/obrabs2.jpeg';
-import obrabs3 from '../assets/obrabs3.jpeg';
-import obrabs4 from '../assets/obrabs4.jpeg';
-import obrabs5 from '../assets/obrabs5.jpeg';
-import obrabs6 from '../assets/obrabs6.jpeg';
+//import obrabs1 from '../assets/obrabs1.jpeg';
+//import obrabs2 from '../assets/obrabs2.jpeg';
+//import obrabs3 from '../assets/obrabs3.jpeg';
+//import obrabs4 from '../assets/obrabs4.jpeg';
+//import obrabs5 from '../assets/obrabs5.jpeg';
+//import obrabs6 from '../assets/obrabs6.jpeg';
+import equipe from '../assets/equipe.jpg';
 
 // Imagens locais para o carrossel
 const EXAMPLE_IMAGES = [
-  obrabs1,
-  obrabs2,
-  obrabs3,
-  obrabs4,
-  obrabs5,
-  obrabs6,
+  //obrabs1,
+  //obrabs2,
+  //obrabs3,
+  //obrabs4,
+  //obrabs5,
+  //obrabs6,
+  equipe,
 ];
 
 function GenteGestao({ onBack }) {
@@ -496,17 +498,7 @@ function GenteGestao({ onBack }) {
                     alignItems: 'flex-end'
                   }}
                 >
-                  <Box 
-                    sx={{ 
-                      width: '100%', 
-                      p: 2, 
-                      bgcolor: 'rgba(0,0,0,0.6)',
-                      color: 'white'
-                    }}
-                  >
-                    <Typography variant="h6">Obra {activeStep + 1}</Typography>
-                    <Typography variant="body2">Projeto em andamento. Aqui você pode visualizar o progresso da construção.</Typography>
-                  </Box>
+                  
                 </Box>
                 
                 <MobileStepper

@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import construcaoImg from './assets/construcao.png';
 import GenteGestao from './components/GenteGestao';
 import { useAuth } from './contexts/AuthContext';
+import FormularioSST from './components/SST/FormularioSST'; // Importe apenas o componente principal
 
 // Importação dos componentes separados
 import Header from './components/Header';
@@ -71,6 +72,8 @@ function App({ onLogout }) {
         return <IaTopPage onBack={handleBackToHome} />;
       case 'genteGestao':
         return <GenteGestao onBack={handleBackToHome} />;
+      case 'SST': // Use o FormularioSST ao invés do FormularioSeguranca
+        return <FormularioSST handleBackToHome={handleBackToHome} />;
       case 'home':
       default:
         return (

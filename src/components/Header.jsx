@@ -148,7 +148,10 @@ const Header = ({
             </MenuItem>
             
             <MenuItem 
-              onClick={handleServicesClose}
+              onClick={() => {
+                handleNavigateToPage('SST');  // Modificado para navegar para SST
+                handleServicesClose();
+              }}
               sx={{ 
                 py: 1.5, 
                 display: 'flex', 
@@ -338,7 +341,7 @@ const Header = ({
               </Avatar>
               <Box>
                 <Typography variant="body2" sx={{ fontWeight: 'bold' }}>WhatsApp</Typography>
-                <Typography variant="body2">(11) 99999-9999</Typography>
+                <Typography variant="body2"> (62) 3093-0464</Typography>
               </Box>
             </MenuItem>
             
@@ -357,7 +360,7 @@ const Header = ({
               </Avatar>
               <Box>
                 <Typography variant="body2" sx={{ fontWeight: 'bold' }}>Email</Typography>
-                <Typography variant="body2">contato@topconstrutora.com</Typography>
+                <Typography variant="body2">atendimento@topconstrutora.com</Typography>
               </Box>
             </MenuItem>
             
@@ -376,7 +379,7 @@ const Header = ({
               </Avatar>
               <Box>
                 <Typography variant="body2" sx={{ fontWeight: 'bold' }}>Telefone</Typography>
-                <Typography variant="body2">(11) 5555-5555</Typography>
+                <Typography variant="body2">(62) 3922-0464 </Typography>
               </Box>
             </MenuItem>
           </Menu>

@@ -166,7 +166,7 @@ const Footer = ({ setCurrentPage, handleAboutOpen, handleContactClick, handleNav
                 Endereço
               </Typography>
               <Typography variant="body2">
-                Av. Paulista, 1000, São Paulo, SP
+                WTC - World Trade Center - Av. D, esq. c, Av. 85, Sala 3502 - St. Marista, Goiânia - GO, 74150-040
               </Typography>
             </Box>
             
@@ -175,7 +175,7 @@ const Footer = ({ setCurrentPage, handleAboutOpen, handleContactClick, handleNav
                 Email
               </Typography>
               <Typography variant="body2">
-                contato@topconstrutora.com
+                atendimento@topconstrutora.com
               </Typography>
             </Box>
             
@@ -184,7 +184,7 @@ const Footer = ({ setCurrentPage, handleAboutOpen, handleContactClick, handleNav
                 Telefone
               </Typography>
               <Typography variant="body2">
-                (11) 99999-9999
+                (62) 3922-0464 | (62) 3093-0464
               </Typography>
             </Box>
           </Grid>

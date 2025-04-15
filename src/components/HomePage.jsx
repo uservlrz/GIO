@@ -277,6 +277,7 @@ const HomePage = ({ handleNavigateToPage, construcaoImg }) => {
                     size="small" 
                     color="primary" 
                     variant="contained" 
+                    onClick={() => handleNavigateToPage('SST')}
                     sx={{ 
                       borderRadius: 3,
                       px: 3
