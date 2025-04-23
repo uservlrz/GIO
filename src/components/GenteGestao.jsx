@@ -30,6 +30,9 @@ import photoFeedService from '../services/photoFeedService';
 //import obrabs5 from '../assets/obrabs5.jpeg';
 //import obrabs6 from '../assets/obrabs6.jpeg';
 import equipe from '../assets/equipe.jpg';
+//import predio from '../assets/1742328090002.jpg';
+//import linkedin from '../assets/fotos_linkedin.jpg';
+import fundo from '../assets/fundo.png';
 
 // Imagens locais para o carrossel
 const EXAMPLE_IMAGES = [
@@ -40,6 +43,9 @@ const EXAMPLE_IMAGES = [
   //obrabs5,
   //obrabs6,
   equipe,
+  //predio,
+  //linkedin,
+  fundo,
 ];
 
 function GenteGestao({ onBack }) {

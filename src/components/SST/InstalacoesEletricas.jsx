@@ -23,7 +23,7 @@ import {
   Tooltip
 } from '@mui/material';
 import SecurityIcon from '@mui/icons-material/Security';
-import CheckroomIcon from '@mui/icons-material/Checkroom';
+import ElectricalServicesIcon from '@mui/icons-material/ElectricalServices';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -33,21 +33,28 @@ import HelpIcon from '@mui/icons-material/Help';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { STEPS } from './config';
 
-const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} }) => {
+const InstalacoesEletricas = ({ handleBackToControleColaboradores, handleNextPage, dadosIniciais = {} }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const fileInputRef = useRef(null);
 
   // Estado para os radio buttons
   const [respostas, setRespostas] = useState(dadosIniciais || {
-    vestiariosDivisao: '',
-    vestiariosConservacao: '',
-    vestiariosVentilacao: '',
-    vestiariosAssentos: '',
-    vestiariosArmarios: ''
+    instalacoesNR10: '',
+    projetoEletrico: '',
+    quadroDistribuicao: '',
+    acessoDesobstruido: '',
+    dispositivoResidual: '',
+    sistemaSPDA: '',
+    condutoresNaoObstruem: '',
+    condutoresIsolacaoDupla: '',
+    sistemasAterramento: '',
+    quadrosDimensionados: '',
+    quadrosResistentesCalor: '',
+    partesVivasInacessiveis: '',
+    equipamentosConformeNormas: ''
   });
 
-  // Etapas do processo
   // Função para lidar com mudanças nos radio buttons
   const handleRadioChange = (event) => {
     setRespostas({
@@ -68,7 +75,7 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
       
       // Dados a serem passados para a próxima etapa
       const dados = {
-        respostasVestiarios: respostas
+        respostasInstalacoesEletricas: respostas
       };
       
       if (handleNextPage) {
@@ -80,11 +87,19 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
   // Função para limpar o formulário
   const limparFormulario = () => {
     setRespostas({
-      vestiariosDivisao: '',
-      vestiariosConservacao: '',
-      vestiariosVentilacao: '',
-      vestiariosAssentos: '',
-      vestiariosArmarios: ''
+      instalacoesNR10: '',
+      projetoEletrico: '',
+      quadroDistribuicao: '',
+      acessoDesobstruido: '',
+      dispositivoResidual: '',
+      sistemaSPDA: '',
+      condutoresNaoObstruem: '',
+      condutoresIsolacaoDupla: '',
+      sistemasAterramento: '',
+      quadrosDimensionados: '',
+      quadrosResistentesCalor: '',
+      partesVivasInacessiveis: '',
+      equipamentosConformeNormas: ''
     });
   };
   
@@ -298,16 +313,16 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                 <Divider sx={{ mb: 3 }} />
                 
                 <Typography variant="body2" sx={{ mb: 3, color: 'text.secondary' }}>
-                  Avalie as condições dos vestiários no canteiro de obras. Vestiários adequados
-                  são essenciais para garantir a dignidade, privacidade e bem-estar dos trabalhadores
-                  nas áreas de vivência.
+                  Avalie as instalações elétricas do canteiro de obras.
+                  Instalações elétricas seguras e conforme as normas são essenciais
+                  para prevenir acidentes e garantir a segurança dos trabalhadores.
                 </Typography>
                 
                 <Typography variant="subtitle2" fontWeight="bold" sx={{ mb: 2 }}>
                   Processo de Avaliação:
                 </Typography>
                 
-                <Stepper activeStep={5} orientation="vertical" sx={{ mb: 3 }}>
+                <Stepper activeStep={9} orientation="vertical" sx={{ mb: 3 }}>
                   {STEPS.map((label) => (
                     <Step key={label}>
                       <StepLabel>{label}</StepLabel>
@@ -353,10 +368,10 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                 fontWeight="bold" 
                 sx={{ mb: 1 }}
               >
-                VESTIÁRIOS
+                INSTALAÇÕES ELÉTRICAS
               </Typography>
               <Typography variant="subtitle1">
-                Avaliação das condições dos vestiários no canteiro de obras
+                Avaliação das instalações elétricas no canteiro de obras conforme a NR-10
               </Typography>
             </Box>
             
@@ -371,48 +386,104 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                       color: theme.palette.primary.main
                     }}
                   >
-                    <CheckroomIcon sx={{ mr: 1 }} /> Instalações de Vestiários
+                    <ElectricalServicesIcon sx={{ mr: 1 }} /> Instalações e Segurança Elétrica
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mt: 1, mb: 3 }}>
-                    Avalie as condições dos vestiários disponíveis para os trabalhadores.
+                    Avalie se as instalações elétricas do canteiro de obras atendem às normas de segurança.
                   </Typography>
                 </Grid>
               </Grid>
 
-              {/* Perguntas sobre vestiários */}
+              {/* Perguntas sobre instalações elétricas */}
               <Questao 
-                numero="31"
-                texto="Os vestiários possuem divisão por sexo e possuem piso e parede revestidos por material impermeável e lavável?"
-                name="vestiariosDivisao"
-                value={respostas.vestiariosDivisao}
+                numero="48"
+                texto="As instalações elétricas temporárias está atendendo a normativa da NR 10?"
+                name="instalacoesNR10"
+                value={respostas.instalacoesNR10}
               />
               
               <Questao 
-                numero="32"
-                texto="São mantidos em condição de conservação, limpeza e higiene?"
-                name="vestiariosConservacao"
-                value={respostas.vestiariosConservacao}
+                numero="49"
+                texto="O canteiro de obras está com projeto elétrico atualizado e elaborado por um profissional legalmente habilitado?"
+                name="projetoEletrico"
+                value={respostas.projetoEletrico}
               />
               
               <Questao 
-                numero="33"
-                texto="Possui ventilação para o exterior?"
-                name="vestiariosVentilacao"
-                value={respostas.vestiariosVentilacao}
+                numero="50"
+                texto="O quadro de distribuição elétrica é constituído de material resistente com partes inacessíveis e protegidos ao trabalhador?"
+                name="quadroDistribuicao"
+                value={respostas.quadroDistribuicao}
               />
               
               <Questao 
-                numero="34"
-                texto="Possui assentos em material lavável e impermeável em número compatível com o de trabalhadores?"
-                name="vestiariosAssentos"
-                value={respostas.vestiariosAssentos}
+                numero="51"
+                texto="O acesso é desobstruído, identificado e sinalizado?"
+                name="acessoDesobstruido"
+                value={respostas.acessoDesobstruido}
               />
               
               <Questao 
-                numero="35"
-                texto="Possui armários individuais simples e/ou duplos com sistema de trancamento?"
-                name="vestiariosArmarios"
-                value={respostas.vestiariosArmarios}
+                numero="52"
+                texto="Os ROBOZINHOS possuem dispositivo residual (DR) como medida de seguraça?"
+                name="dispositivoResidual"
+                value={respostas.dispositivoResidual}
+              />
+              
+              <Questao 
+                numero="53"
+                texto="O canteiro está protegido por Sistema de Proteção Contra Descargas Atmósferica SPDA?"
+                name="sistemaSPDA"
+                value={respostas.sistemaSPDA}
+              />
+              
+              <Questao 
+                numero="54"
+                texto="Os condutores elétricos (Extensão) estão disposto a não obstruir a circulação de pessoas e materiais?"
+                name="condutoresNaoObstruem"
+                value={respostas.condutoresNaoObstruem}
+              />
+              
+              <Questao 
+                numero="55"
+                texto="Os condutores elétricos (Extensão) possui isolação dupla?"
+                name="condutoresIsolacaoDupla"
+                value={respostas.condutoresIsolacaoDupla}
+              />
+              
+              <Questao 
+                numero="56"
+                texto="As instalações elétricas possuem sistema de aterramento eletrico de proteção?"
+                name="sistemasAterramento"
+                value={respostas.sistemasAterramento}
+              />
+              
+              <Questao 
+                numero="57"
+                texto="Os quadros de distribuição das instalações estão dimensionados com capacidade para instalar componentes?"
+                name="quadrosDimensionados"
+                value={respostas.quadrosDimensionados}
+              />
+              
+              <Questao 
+                numero="58"
+                texto="Os quadros são feitos com materiais resistentes ao calor gerado pelo componente?"
+                name="quadrosResistentesCalor"
+                value={respostas.quadrosResistentesCalor}
+              />
+              
+              <Questao 
+                numero="59"
+                texto="As partes vivas estão inacessíveis e protegidas aos trabalhadores não autorizados?"
+                name="partesVivasInacessiveis"
+                value={respostas.partesVivasInacessiveis}
+              />
+              
+              <Questao 
+                numero="60"
+                texto="As máquinas e equipamentos móveis e ferramentas elétricas portáteis estão sendo conectadas à rede de alimentação elétrica, por intermédio de conjunto de plugue e tomada, em conformidade com as normas técnicas nacional vigentes?"
+                name="equipamentosConformeNormas"
+                value={respostas.equipamentosConformeNormas}
               />
 
               {/* Input de arquivo escondido */}
@@ -439,7 +510,7 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                     <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                       <Button 
                         variant="outlined" 
-                        onClick={handleBackToChuveiros}
+                        onClick={handleBackToControleColaboradores}
                         startIcon={<ArrowBackIcon />}
                         sx={{ 
                           borderRadius: 2,
@@ -504,4 +575,4 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
   );
 };
 
-export default Vestiarios;
+export default InstalacoesEletricas;

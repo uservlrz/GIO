@@ -23,7 +23,7 @@ import {
   Tooltip
 } from '@mui/material';
 import SecurityIcon from '@mui/icons-material/Security';
-import CheckroomIcon from '@mui/icons-material/Checkroom';
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -33,18 +33,16 @@ import HelpIcon from '@mui/icons-material/Help';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { STEPS } from './config';
 
-const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} }) => {
+const ControleSaudeOcupacional = ({ handleBackToLocalRefeicoes, handleNextPage, dadosIniciais = {} }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const fileInputRef = useRef(null);
 
   // Estado para os radio buttons
   const [respostas, setRespostas] = useState(dadosIniciais || {
-    vestiariosDivisao: '',
-    vestiariosConservacao: '',
-    vestiariosVentilacao: '',
-    vestiariosAssentos: '',
-    vestiariosArmarios: ''
+    asoEmDia: '',
+    vacinasEmDia: '',
+    planilhaVacinasAtualizada: ''
   });
 
   // Etapas do processo
@@ -68,7 +66,7 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
       
       // Dados a serem passados para a próxima etapa
       const dados = {
-        respostasVestiarios: respostas
+        respostasControleSaude: respostas
       };
       
       if (handleNextPage) {
@@ -80,11 +78,9 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
   // Função para limpar o formulário
   const limparFormulario = () => {
     setRespostas({
-      vestiariosDivisao: '',
-      vestiariosConservacao: '',
-      vestiariosVentilacao: '',
-      vestiariosAssentos: '',
-      vestiariosArmarios: ''
+      asoEmDia: '',
+      vacinasEmDia: '',
+      planilhaVacinasAtualizada: ''
     });
   };
   
@@ -298,16 +294,16 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                 <Divider sx={{ mb: 3 }} />
                 
                 <Typography variant="body2" sx={{ mb: 3, color: 'text.secondary' }}>
-                  Avalie as condições dos vestiários no canteiro de obras. Vestiários adequados
-                  são essenciais para garantir a dignidade, privacidade e bem-estar dos trabalhadores
-                  nas áreas de vivência.
+                  Avalie o controle de saúde ocupacional dos trabalhadores no canteiro de obras.
+                  O acompanhamento adequado da saúde é essencial para a prevenção de doenças
+                  ocupacionais e manutenção do bem-estar da equipe.
                 </Typography>
                 
                 <Typography variant="subtitle2" fontWeight="bold" sx={{ mb: 2 }}>
                   Processo de Avaliação:
                 </Typography>
                 
-                <Stepper activeStep={5} orientation="vertical" sx={{ mb: 3 }}>
+                <Stepper activeStep={7} orientation="vertical" sx={{ mb: 3 }}>
                   {STEPS.map((label) => (
                     <Step key={label}>
                       <StepLabel>{label}</StepLabel>
@@ -353,10 +349,10 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                 fontWeight="bold" 
                 sx={{ mb: 1 }}
               >
-                VESTIÁRIOS
+                CONTROLE DE SAÚDE OCUPACIONAL
               </Typography>
               <Typography variant="subtitle1">
-                Avaliação das condições dos vestiários no canteiro de obras
+                Avaliação dos documentos e procedimentos relativos à saúde dos trabalhadores
               </Typography>
             </Box>
             
@@ -371,48 +367,34 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                       color: theme.palette.primary.main
                     }}
                   >
-                    <CheckroomIcon sx={{ mr: 1 }} /> Instalações de Vestiários
+                    <HealthAndSafetyIcon sx={{ mr: 1 }} /> Documentação de Saúde
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mt: 1, mb: 3 }}>
-                    Avalie as condições dos vestiários disponíveis para os trabalhadores.
+                    Avalie se os documentos relacionados à saúde dos trabalhadores estão em conformidade com as normas.
                   </Typography>
                 </Grid>
               </Grid>
 
-              {/* Perguntas sobre vestiários */}
+              {/* Perguntas sobre controle de saúde ocupacional */}
               <Questao 
-                numero="31"
-                texto="Os vestiários possuem divisão por sexo e possuem piso e parede revestidos por material impermeável e lavável?"
-                name="vestiariosDivisao"
-                value={respostas.vestiariosDivisao}
+                numero="43"
+                texto="ASO's estão em dia?"
+                name="asoEmDia"
+                value={respostas.asoEmDia}
               />
               
               <Questao 
-                numero="32"
-                texto="São mantidos em condição de conservação, limpeza e higiene?"
-                name="vestiariosConservacao"
-                value={respostas.vestiariosConservacao}
+                numero="44"
+                texto="As vacinas dos colaboradores estão em dia?"
+                name="vacinasEmDia"
+                value={respostas.vacinasEmDia}
               />
               
               <Questao 
-                numero="33"
-                texto="Possui ventilação para o exterior?"
-                name="vestiariosVentilacao"
-                value={respostas.vestiariosVentilacao}
-              />
-              
-              <Questao 
-                numero="34"
-                texto="Possui assentos em material lavável e impermeável em número compatível com o de trabalhadores?"
-                name="vestiariosAssentos"
-                value={respostas.vestiariosAssentos}
-              />
-              
-              <Questao 
-                numero="35"
-                texto="Possui armários individuais simples e/ou duplos com sistema de trancamento?"
-                name="vestiariosArmarios"
-                value={respostas.vestiariosArmarios}
+                numero="45"
+                texto="A planilha de vacinas está atualizada?"
+                name="planilhaVacinasAtualizada"
+                value={respostas.planilhaVacinasAtualizada}
               />
 
               {/* Input de arquivo escondido */}
@@ -439,7 +421,7 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                     <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                       <Button 
                         variant="outlined" 
-                        onClick={handleBackToChuveiros}
+                        onClick={handleBackToLocalRefeicoes}
                         startIcon={<ArrowBackIcon />}
                         sx={{ 
                           borderRadius: 2,
@@ -504,4 +486,4 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
   );
 };
 
-export default Vestiarios;
+export default ControleSaudeOcupacional;

@@ -23,7 +23,7 @@ import {
   Tooltip
 } from '@mui/material';
 import SecurityIcon from '@mui/icons-material/Security';
-import CheckroomIcon from '@mui/icons-material/Checkroom';
+import PeopleIcon from '@mui/icons-material/People';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -33,21 +33,17 @@ import HelpIcon from '@mui/icons-material/Help';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { STEPS } from './config';
 
-const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} }) => {
+const ControleColaboradores = ({ handleBackToControleSaude, handleNextPage, dadosIniciais = {} }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const fileInputRef = useRef(null);
 
   // Estado para os radio buttons
   const [respostas, setRespostas] = useState(dadosIniciais || {
-    vestiariosDivisao: '',
-    vestiariosConservacao: '',
-    vestiariosVentilacao: '',
-    vestiariosAssentos: '',
-    vestiariosArmarios: ''
+    planilhaColaboradoresAtualizada: '',
+    controlePortariaAtualizado: ''
   });
 
-  // Etapas do processo
   // Função para lidar com mudanças nos radio buttons
   const handleRadioChange = (event) => {
     setRespostas({
@@ -68,7 +64,7 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
       
       // Dados a serem passados para a próxima etapa
       const dados = {
-        respostasVestiarios: respostas
+        respostasControleColaboradores: respostas
       };
       
       if (handleNextPage) {
@@ -80,11 +76,8 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
   // Função para limpar o formulário
   const limparFormulario = () => {
     setRespostas({
-      vestiariosDivisao: '',
-      vestiariosConservacao: '',
-      vestiariosVentilacao: '',
-      vestiariosAssentos: '',
-      vestiariosArmarios: ''
+      planilhaColaboradoresAtualizada: '',
+      controlePortariaAtualizado: ''
     });
   };
   
@@ -298,16 +291,16 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                 <Divider sx={{ mb: 3 }} />
                 
                 <Typography variant="body2" sx={{ mb: 3, color: 'text.secondary' }}>
-                  Avalie as condições dos vestiários no canteiro de obras. Vestiários adequados
-                  são essenciais para garantir a dignidade, privacidade e bem-estar dos trabalhadores
-                  nas áreas de vivência.
+                  Avalie o controle de colaboradores no canteiro de obras.
+                  O acompanhamento adequado dos colaboradores internos e externos
+                  é essencial para a segurança e controle de acesso no canteiro.
                 </Typography>
                 
                 <Typography variant="subtitle2" fontWeight="bold" sx={{ mb: 2 }}>
                   Processo de Avaliação:
                 </Typography>
                 
-                <Stepper activeStep={5} orientation="vertical" sx={{ mb: 3 }}>
+                <Stepper activeStep={8} orientation="vertical" sx={{ mb: 3 }}>
                   {STEPS.map((label) => (
                     <Step key={label}>
                       <StepLabel>{label}</StepLabel>
@@ -353,10 +346,10 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                 fontWeight="bold" 
                 sx={{ mb: 1 }}
               >
-                VESTIÁRIOS
+                CONTROLE DE COLABORADORES
               </Typography>
               <Typography variant="subtitle1">
-                Avaliação das condições dos vestiários no canteiro de obras
+                Avaliação do controle de colaboradores internos e externos no canteiro de obras
               </Typography>
             </Box>
             
@@ -371,48 +364,27 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                       color: theme.palette.primary.main
                     }}
                   >
-                    <CheckroomIcon sx={{ mr: 1 }} /> Instalações de Vestiários
+                    <PeopleIcon sx={{ mr: 1 }} /> Registros e Controles
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mt: 1, mb: 3 }}>
-                    Avalie as condições dos vestiários disponíveis para os trabalhadores.
+                    Avalie se os documentos relacionados ao controle de colaboradores estão em conformidade com as normas.
                   </Typography>
                 </Grid>
               </Grid>
 
-              {/* Perguntas sobre vestiários */}
+              {/* Perguntas sobre controle de colaboradores */}
               <Questao 
-                numero="31"
-                texto="Os vestiários possuem divisão por sexo e possuem piso e parede revestidos por material impermeável e lavável?"
-                name="vestiariosDivisao"
-                value={respostas.vestiariosDivisao}
+                numero="46"
+                texto="A planilha de colaboradores internos e externos estão atualizados?"
+                name="planilhaColaboradoresAtualizada"
+                value={respostas.planilhaColaboradoresAtualizada}
               />
               
               <Questao 
-                numero="32"
-                texto="São mantidos em condição de conservação, limpeza e higiene?"
-                name="vestiariosConservacao"
-                value={respostas.vestiariosConservacao}
-              />
-              
-              <Questao 
-                numero="33"
-                texto="Possui ventilação para o exterior?"
-                name="vestiariosVentilacao"
-                value={respostas.vestiariosVentilacao}
-              />
-              
-              <Questao 
-                numero="34"
-                texto="Possui assentos em material lavável e impermeável em número compatível com o de trabalhadores?"
-                name="vestiariosAssentos"
-                value={respostas.vestiariosAssentos}
-              />
-              
-              <Questao 
-                numero="35"
-                texto="Possui armários individuais simples e/ou duplos com sistema de trancamento?"
-                name="vestiariosArmarios"
-                value={respostas.vestiariosArmarios}
+                numero="47"
+                texto="O controle de portaria está atualizado?"
+                name="controlePortariaAtualizado"
+                value={respostas.controlePortariaAtualizado}
               />
 
               {/* Input de arquivo escondido */}
@@ -439,7 +411,7 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                     <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                       <Button 
                         variant="outlined" 
-                        onClick={handleBackToChuveiros}
+                        onClick={handleBackToControleSaude}
                         startIcon={<ArrowBackIcon />}
                         sx={{ 
                           borderRadius: 2,
@@ -504,4 +476,4 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
   );
 };
 
-export default Vestiarios;
+export default ControleColaboradores;

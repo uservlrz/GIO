@@ -23,7 +23,7 @@ import {
   Tooltip
 } from '@mui/material';
 import SecurityIcon from '@mui/icons-material/Security';
-import CheckroomIcon from '@mui/icons-material/Checkroom';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -33,18 +33,20 @@ import HelpIcon from '@mui/icons-material/Help';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { STEPS } from './config';
 
-const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} }) => {
+const LocalRefeicoes = ({ handleBackToVestiarios, handleNextPage, dadosIniciais = {} }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const fileInputRef = useRef(null);
 
   // Estado para os radio buttons
   const [respostas, setRespostas] = useState(dadosIniciais || {
-    vestiariosDivisao: '',
-    vestiariosConservacao: '',
-    vestiariosVentilacao: '',
-    vestiariosAssentos: '',
-    vestiariosArmarios: ''
+    refeitorioPiso: '',
+    refeitorioMesas: '',
+    refeitorioLimpeza: '',
+    refeitorioLavatorio: '',
+    refeitorioLixo: '',
+    refeitorioAquecimento: '',
+    refeitorioDescartes: ''
   });
 
   // Etapas do processo
@@ -68,7 +70,7 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
       
       // Dados a serem passados para a próxima etapa
       const dados = {
-        respostasVestiarios: respostas
+        respostasLocalRefeicoes: respostas
       };
       
       if (handleNextPage) {
@@ -80,11 +82,13 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
   // Função para limpar o formulário
   const limparFormulario = () => {
     setRespostas({
-      vestiariosDivisao: '',
-      vestiariosConservacao: '',
-      vestiariosVentilacao: '',
-      vestiariosAssentos: '',
-      vestiariosArmarios: ''
+      refeitorioPiso: '',
+      refeitorioMesas: '',
+      refeitorioLimpeza: '',
+      refeitorioLavatorio: '',
+      refeitorioLixo: '',
+      refeitorioAquecimento: '',
+      refeitorioDescartes: ''
     });
   };
   
@@ -298,16 +302,16 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                 <Divider sx={{ mb: 3 }} />
                 
                 <Typography variant="body2" sx={{ mb: 3, color: 'text.secondary' }}>
-                  Avalie as condições dos vestiários no canteiro de obras. Vestiários adequados
-                  são essenciais para garantir a dignidade, privacidade e bem-estar dos trabalhadores
-                  nas áreas de vivência.
+                  Avalie as condições do local para refeições no canteiro de obras. Um espaço
+                  adequado para as refeições é essencial para garantir a saúde e o bem-estar
+                  dos trabalhadores.
                 </Typography>
                 
                 <Typography variant="subtitle2" fontWeight="bold" sx={{ mb: 2 }}>
                   Processo de Avaliação:
                 </Typography>
                 
-                <Stepper activeStep={5} orientation="vertical" sx={{ mb: 3 }}>
+                <Stepper activeStep={6} orientation="vertical" sx={{ mb: 3 }}>
                   {STEPS.map((label) => (
                     <Step key={label}>
                       <StepLabel>{label}</StepLabel>
@@ -353,10 +357,10 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                 fontWeight="bold" 
                 sx={{ mb: 1 }}
               >
-                VESTIÁRIOS
+                LOCAL PARA REFEIÇÕES
               </Typography>
               <Typography variant="subtitle1">
-                Avaliação das condições dos vestiários no canteiro de obras
+                Avaliação das condições do refeitório no canteiro de obras
               </Typography>
             </Box>
             
@@ -371,48 +375,62 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                       color: theme.palette.primary.main
                     }}
                   >
-                    <CheckroomIcon sx={{ mr: 1 }} /> Instalações de Vestiários
+                    <RestaurantIcon sx={{ mr: 1 }} /> Refeitório
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mt: 1, mb: 3 }}>
-                    Avalie as condições dos vestiários disponíveis para os trabalhadores.
+                    Avalie as condições do local destinado às refeições dos trabalhadores.
                   </Typography>
                 </Grid>
               </Grid>
 
-              {/* Perguntas sobre vestiários */}
+              {/* Perguntas sobre local para refeições */}
               <Questao 
-                numero="31"
-                texto="Os vestiários possuem divisão por sexo e possuem piso e parede revestidos por material impermeável e lavável?"
-                name="vestiariosDivisao"
-                value={respostas.vestiariosDivisao}
+                numero="36"
+                texto="O refeitório possui piso e paredes pintados com material impermeável e lavável?"
+                name="refeitorioPiso"
+                value={respostas.refeitorioPiso}
               />
               
               <Questao 
-                numero="32"
-                texto="São mantidos em condição de conservação, limpeza e higiene?"
-                name="vestiariosConservacao"
-                value={respostas.vestiariosConservacao}
+                numero="37"
+                texto="O refeitório possui mesas e acentos em quantidade suficiente?"
+                name="refeitorioMesas"
+                value={respostas.refeitorioMesas}
               />
               
               <Questao 
-                numero="33"
-                texto="Possui ventilação para o exterior?"
-                name="vestiariosVentilacao"
-                value={respostas.vestiariosVentilacao}
+                numero="38"
+                texto="É realizado a limpeza diária do refeitório?"
+                name="refeitorioLimpeza"
+                value={respostas.refeitorioLimpeza}
               />
               
               <Questao 
-                numero="34"
-                texto="Possui assentos em material lavável e impermeável em número compatível com o de trabalhadores?"
-                name="vestiariosAssentos"
-                value={respostas.vestiariosAssentos}
+                numero="39"
+                texto="Possui lavatório c/ saboneteira e Papel toalha e bebedouro com água fresca?"
+                name="refeitorioLavatorio"
+                value={respostas.refeitorioLavatorio}
               />
               
               <Questao 
-                numero="35"
-                texto="Possui armários individuais simples e/ou duplos com sistema de trancamento?"
-                name="vestiariosArmarios"
-                value={respostas.vestiariosArmarios}
+                numero="40"
+                texto="O refeitório possui cestos de lixo com tampa?"
+                name="refeitorioLixo"
+                value={respostas.refeitorioLixo}
+              />
+              
+              <Questao 
+                numero="41"
+                texto="O refeitório dipoem de meios para aquecimento das refeições?"
+                name="refeitorioAquecimento"
+                value={respostas.refeitorioAquecimento}
+              />
+              
+              <Questao 
+                numero="42"
+                texto="Possui recipientes com tampa para descarte de restos alimentares e descartáveis?"
+                name="refeitorioDescartes"
+                value={respostas.refeitorioDescartes}
               />
 
               {/* Input de arquivo escondido */}
@@ -439,7 +457,7 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
                     <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                       <Button 
                         variant="outlined" 
-                        onClick={handleBackToChuveiros}
+                        onClick={handleBackToVestiarios}
                         startIcon={<ArrowBackIcon />}
                         sx={{ 
                           borderRadius: 2,
@@ -504,4 +522,4 @@ const Vestiarios = ({ handleBackToChuveiros, handleNextPage, dadosIniciais = {} 
   );
 };
 
-export default Vestiarios;
+export default LocalRefeicoes;

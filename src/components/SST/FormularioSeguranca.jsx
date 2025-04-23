@@ -34,6 +34,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import HomeIcon from '@mui/icons-material/Home';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { STEPS } from './config';
 
 // Componente com props para navegação
 const FormularioSeguranca = ({ handleBackToHome, handleNextPage, dadosIniciais = {} }) => {
@@ -69,8 +70,6 @@ const FormularioSeguranca = ({ handleBackToHome, handleNextPage, dadosIniciais =
   ];
 
   // Etapas do processo
-  const steps = ['Identificação da Obra', 'Documentação Legal', 'Projetos', 'Áreas de Vivência', 'Chuveiros', 'Vestiários', 'Resultados'];
-
   // Função para validar o formulário
   const validarFormulario = () => {
     const novosErros = {
@@ -186,7 +185,7 @@ const FormularioSeguranca = ({ handleBackToHome, handleNextPage, dadosIniciais =
                   </Typography>
                   
                   <Stepper activeStep={0} orientation="vertical" sx={{ mb: 3 }}>
-                    {steps.map((label) => (
+                    {STEPS.map((label) => (
                       <Step key={label}>
                         <StepLabel>{label}</StepLabel>
                       </Step>

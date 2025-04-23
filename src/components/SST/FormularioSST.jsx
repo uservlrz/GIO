@@ -6,6 +6,11 @@ import Projetos from './Projetos';
 import AreasVivencia from './AreasVivencia';
 import Chuveiros from './Chuveiros';
 import Vestiarios from './Vestiarios';
+import LocalRefeicoes from './LocalRefeicoes';
+import ControleSaudeOcupacional from './ControleSaudeOcupacional';
+import ControleColaboradores from './ControleColaboradores';
+import InstalacoesEletricas from './InstalacoesEletricas';
+import { STEPS } from './config';
 
 const FormularioSST = ({ handleBackToHome }) => {
   const [etapaAtual, setEtapaAtual] = useState(0);
@@ -33,7 +38,19 @@ const FormularioSST = ({ handleBackToHome }) => {
     respostasChuveiros: {},
     
     // Vestiários
-    respostasVestiarios: {}
+    respostasVestiarios: {},
+    
+    // Local para Refeições
+    respostasLocalRefeicoes: {},
+    
+    // Controle de Saúde Ocupacional
+    respostasControleSaude: {},
+    
+    // Controle de Colaboradores
+    respostasControleColaboradores: {},
+    
+    // Instalações Elétricas
+    respostasInstalacoesEletricas: {}
   });
   
   // Funções para navegação entre etapas
@@ -99,6 +116,30 @@ const FormularioSST = ({ handleBackToHome }) => {
                  dadosIniciais={dadosFormulario.respostasVestiarios}
                />;
       case 6:
+        return <LocalRefeicoes 
+                 handleBackToVestiarios={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasLocalRefeicoes}
+               />;
+      case 7:
+        return <ControleSaudeOcupacional 
+                 handleBackToLocalRefeicoes={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasControleSaude}
+               />;
+      case 8:
+        return <ControleColaboradores 
+                 handleBackToControleSaude={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasControleColaboradores}
+               />;
+      case 9:
+        return <InstalacoesEletricas 
+                 handleBackToControleColaboradores={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasInstalacoesEletricas}
+               />;
+      case 10:
         // Tela de conclusão
         return (
           <Container maxWidth="md" sx={{ pt: 14, pb: 8, textAlign: 'center' }}>

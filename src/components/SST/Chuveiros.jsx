@@ -31,6 +31,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import HelpIcon from '@mui/icons-material/Help';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { STEPS } from './config';
 
 const Chuveiros = ({ handleBackToAreasVivencia, handleNextPage, dadosIniciais = {} }) => {
   const theme = useTheme();
@@ -44,9 +45,6 @@ const Chuveiros = ({ handleBackToAreasVivencia, handleNextPage, dadosIniciais = 
     chuveirosParede: '',
     chuveirosConservacao: ''
   });
-
-  // Etapas do processo
-  const steps = ['Identificação da Obra', 'Documentação Legal', 'Projetos', 'Áreas de Vivência', 'Chuveiros', 'Vestiários', 'Resultados'];
 
   // Função para lidar com mudanças nos radio buttons
   const handleRadioChange = (event) => {
@@ -307,7 +305,7 @@ const Chuveiros = ({ handleBackToAreasVivencia, handleNextPage, dadosIniciais = 
                 </Typography>
                 
                 <Stepper activeStep={4} orientation="vertical" sx={{ mb: 3 }}>
-                  {steps.map((label) => (
+                  {STEPS.map((label) => (
                     <Step key={label}>
                       <StepLabel>{label}</StepLabel>
                     </Step>

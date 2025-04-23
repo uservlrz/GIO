@@ -45,6 +45,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import HelpIcon from '@mui/icons-material/Help';
+import { STEPS } from './config';
 
 const DocumentacaoLegal = ({ handleBackToForm, handleNextPage, dadosIniciais = {} }) => {
   const theme = useTheme();
@@ -81,8 +82,6 @@ const DocumentacaoLegal = ({ handleBackToForm, handleNextPage, dadosIniciais = {
   });
 
   // Etapas do processo
-  const steps = ['Identificação da Obra', 'Documentação Legal', 'Projetos', 'Áreas de Vivência', 'Chuveiros', 'Vestiários', 'Resultados'];
-
 
   // Função para lidar com mudanças nos radio buttons
   const handleRadioChange = (event) => {
@@ -450,7 +449,7 @@ const DocumentacaoLegal = ({ handleBackToForm, handleNextPage, dadosIniciais = {
                 </Typography>
                 
                 <Stepper activeStep={1} orientation="vertical" sx={{ mb: 3 }}>
-                  {steps.map((label) => (
+                  {STEPS.map((label) => (
                     <Step key={label}>
                       <StepLabel>{label}</StepLabel>
                     </Step>

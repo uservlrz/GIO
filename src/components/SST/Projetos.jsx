@@ -31,6 +31,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import HelpIcon from '@mui/icons-material/Help';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { STEPS } from './config';
 
 const Projetos = ({ handleBackToDocumentacao, handleNextPage, dadosIniciais = {} }) => {
   const theme = useTheme();
@@ -45,9 +46,6 @@ const Projetos = ({ handleBackToDocumentacao, handleNextPage, dadosIniciais = {}
     projetoSPIQ: '',
     projetoSPDA: ''
   });
-
-  // Etapas do processo
-  const steps = ['Identificação da Obra', 'Documentação Legal', 'Projetos', 'Áreas de Vivência', 'Chuveiros', 'Vestiários', 'Resultados'];
 
   // Função para lidar com mudanças nos radio buttons
   const handleRadioChange = (event) => {
@@ -309,7 +307,7 @@ const Projetos = ({ handleBackToDocumentacao, handleNextPage, dadosIniciais = {}
                 </Typography>
                 
                 <Stepper activeStep={2} orientation="vertical" sx={{ mb: 3 }}>
-                  {steps.map((label) => (
+                  {STEPS.map((label) => (
                     <Step key={label}>
                       <StepLabel>{label}</StepLabel>
                     </Step>
