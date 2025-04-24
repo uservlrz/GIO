@@ -5,37 +5,6 @@ import { useAuth } from './AuthContext';
 // Chave para armazenar mensagens no localStorage
 const MESSAGE_DB_KEY = 'messageData';
 
-// Mensagens iniciais
-const INITIAL_MESSAGES = [
-  { 
-    id: 1, 
-    author: 'Maria Silva', 
-    department: 'RH', 
-    content: 'Lembrando a todos que o treinamento de segurança será realizado amanhã às 9h na sala de reuniões principal.',
-    avatar: '/api/placeholder/40/40',
-    timestamp: '2025-03-24T10:30:00',
-    userId: null
-  },
-  { 
-    id: 2, 
-    author: 'João Pereira', 
-    department: 'Administração', 
-    content: 'A confraternização de fim de mês será realizada nesta sexta-feira. Todos estão convidados!',
-    avatar: '/api/placeholder/40/40',
-    timestamp: '2025-03-24T14:15:00',
-    userId: null
-  },
-  { 
-    id: 3, 
-    author: 'Ana Oliveira', 
-    department: 'TI', 
-    content: 'O sistema de ponto eletrônico estará em manutenção amanhã das 8h às 10h. Por favor, registre suas horas manualmente durante este período.',
-    avatar: '/api/placeholder/40/40',
-    timestamp: '2025-03-23T16:45:00',
-    userId: null
-  },
-];
-
 // Inicializa o banco de dados se não existir
 const initializeMessageDb = () => {
   if (!localStorage.getItem(MESSAGE_DB_KEY)) {

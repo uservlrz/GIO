@@ -1,16 +1,25 @@
-// config.js
 export const STEPS = [
-    'Identificação da Obra', 
-    'Documentação Legal', 
-    'Projetos', 
-    'Áreas de Vivência', 
-    'Chuveiros', 
-    'Vestiários', 
-    'Local para Refeições', 
-    'Controle de Saúde Ocupacional', 
-    'Controle de Colaboradores',
-    'Instalações Eletricas',
-    'Resultados',
-    
-    
-  ];
+  'Identificação da Obra', 
+  'Documentação Legal', 
+  'Projetos', 
+  'Áreas de Vivência', 
+  'Chuveiros', 
+  'Vestiários', 
+  'Local para Refeições', 
+  'Controle de Saúde Ocupacional',
+  'Controle de Colaboradores',
+  'Instalações Elétricas',
+  'Escavação, Fundação e Desmonte de Rochas',
+  'Escadas e Rampas',
+  'Máquinas e Equipamentos',
+  'Carpintaria',
+  'Armação / Policorte',
+  'Betoneira',
+  'Elevador Cremalheira',
+  'Guincho de Coluna / Mini Grua',
+  'Andaime Fachadeiro',
+  'Andaime Suspenso',
+  'Andaime Suspenso Motorizado',
+  'Plataforma Elevatória Móvel',
+  'Resultados'
+];

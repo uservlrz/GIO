@@ -10,6 +10,18 @@ import LocalRefeicoes from './LocalRefeicoes';
 import ControleSaudeOcupacional from './ControleSaudeOcupacional';
 import ControleColaboradores from './ControleColaboradores';
 import InstalacoesEletricas from './InstalacoesEletricas';
+import EscavacaoFundacao from './EscavacaoFundacao';
+import EscadasRampas from './EscadasRampas';
+import MaquinasEquipamentos from './MaquinasEquipamentos';
+import Carpintaria from './Carpintaria';
+import ArmacaoPolicorte from './ArmacaoPolicorte';
+import Betoneira from './Betoneira';
+import ElevadorCremalheira from './ElevadorCremalheira';
+import GuinchoColuna from './GuinchoColuna';
+import AndaimeFachadeiro from './AndaimeFachadeiro';
+import AndaimeSuspenso from './AndaimeSuspenso';
+import AndaimeSuspensoMotorizado from './AndaimeSuspensoMotorizado';
+import PlataformaElevatoriaMovel from './PlataformaElevatoriaMovel';
 import { STEPS } from './config';
 
 const FormularioSST = ({ handleBackToHome }) => {
@@ -50,7 +62,43 @@ const FormularioSST = ({ handleBackToHome }) => {
     respostasControleColaboradores: {},
     
     // Instalações Elétricas
-    respostasInstalacoesEletricas: {}
+    respostasInstalacoesEletricas: {},
+    
+    // Escavação, Fundação e Desmonte de Rochas
+    respostasEscavacaoFundacao: {},
+    
+    // Escadas e Rampas
+    respostasEscadasRampas: {},
+    
+    // Máquinas e Equipamentos
+    respostasMaquinasEquipamentos: {},
+    
+    // Carpintaria
+    respostasCarpintaria: {},
+    
+    // Armação / Policorte
+    respostasArmacaoPolicorte: {},
+    
+    // Betoneira
+    respostasBetoneira: {},
+    
+    // Elevador Cremalheira
+    respostasElevadorCremalheira: {},
+    
+    // Guincho de Coluna / Mini Grua
+    respostasGuinchoColuna: {},
+    
+    // Andaime Fachadeiro
+    respostasAndaimeFachadeiro: {},
+    
+    // Andaime Suspenso
+    respostasAndaimeSuspenso: {},
+    
+    // Andaime Suspenso Motorizado
+    respostasAndaimeSuspensoMotorizado: {},
+    
+    // Plataforma Elevatória Móvel de Trabalho
+    respostasPlataformaElevatoriaMovel: {}
   });
   
   // Funções para navegação entre etapas
@@ -140,6 +188,78 @@ const FormularioSST = ({ handleBackToHome }) => {
                  dadosIniciais={dadosFormulario.respostasInstalacoesEletricas}
                />;
       case 10:
+        return <EscavacaoFundacao 
+                 handleBackToInstalacoesEletricas={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasEscavacaoFundacao}
+               />;
+      case 11:
+        return <EscadasRampas 
+                 handleBackToEscavacaoFundacao={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasEscadasRampas}
+               />;
+      case 12:
+        return <MaquinasEquipamentos 
+                 handleBackToEscadasRampas={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasMaquinasEquipamentos}
+               />;
+      case 13:
+        return <Carpintaria 
+                 handleBackToMaquinasEquipamentos={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasCarpintaria}
+               />;
+      case 14:
+        return <ArmacaoPolicorte 
+                 handleBackToCarpintaria={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasArmacaoPolicorte}
+               />;
+      case 15:
+        return <Betoneira 
+                 handleBackToArmacaoPolicorte={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasBetoneira}
+               />;
+      case 16:
+        return <ElevadorCremalheira 
+                 handleBackToBetoneira={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasElevadorCremalheira}
+               />;
+      case 17:
+        return <GuinchoColuna 
+                 handleBackToElevadorCremalheira={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasGuinchoColuna}
+               />;
+      case 18:
+        return <AndaimeFachadeiro 
+                 handleBackToGuinchoColuna={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasAndaimeFachadeiro}
+               />;
+      case 19:
+        return <AndaimeSuspenso 
+                 handleBackToAndaimeFachadeiro={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasAndaimeSuspenso}
+               />;
+      case 20:
+        return <AndaimeSuspensoMotorizado 
+                 handleBackToAndaimeSuspenso={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasAndaimeSuspensoMotorizado}
+               />;
+      case 21:
+        return <PlataformaElevatoriaMovel 
+                 handleBackToAndaimeSuspensoMotorizado={voltarEtapa} 
+                 handleNextPage={avancarEtapa}
+                 dadosIniciais={dadosFormulario.respostasPlataformaElevatoriaMovel}
+               />;
+      case 22:
         // Tela de conclusão
         return (
           <Container maxWidth="md" sx={{ pt: 14, pb: 8, textAlign: 'center' }}>
